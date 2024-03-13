@@ -108,18 +108,22 @@ class Window:
 		y: int = None,
 		x: int = None
 	):
-		i = 0
 		og_y, og_x = self.get_yx()
+		tip_y, _ = self.get_max_yx()
+		tip_y = y if y else tip_y
+		tip_x = x if x else 1
+		
+		i = 0
 		while True:
 			i += 1
 			key = self.get_key()
 			
 			if key in consts.next:
+				self.window.move(tip_y - 1, tip_x)
+				self.window.clrtoeol()
+				self.window.move(og_y, og_x)
 				break 
 			elif i == wait_actions:
-				tip_y, _ = self.get_max_yx()
-				tip_y = y if y else tip_y
-				tip_x = x if x else 1
 				self.print_str(string, tip_y - 1, tip_x, attr="standout", quick=True)
 				self.window.move(og_y, og_x)
 	

@@ -25,8 +25,8 @@ class SQL:
 	
 	def dict_insert(self, table_name: str, key_or_dict, value=None):
 		if not isinstance(key_or_dict, dict):
-			if value == None:
-				raise BadArgumentError("Nuh uh")
+			if value is None:
+				raise ValueError("Nuh uh")
 			sql_values = f'("{key_or_dict}", "{value}")'
 		else:
 			sql_values = ""

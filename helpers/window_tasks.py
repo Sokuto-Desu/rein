@@ -1,6 +1,7 @@
 import re
+import time
 
-from typing import FunctionType
+from types import FunctionType
 from .window import Window
 
 
@@ -21,7 +22,7 @@ class WindowTasks:
 			task_after_select: Either a dictionary of user's selection and arguments for this method 
 					or a function that takes Window and str (selected option) as arguments. 
 					Will be executed after user's selection (see `select`). None to skip. 
-			final: a function that takes Window as an argument and will be executed in the (almost) very end of current task.
+			final: A function that takes Window as an argument and will be executed in the (almost) very end of current task.
 					None to skip.
 			wait_for_enter: Amount of actions to wait until displaying the tip for enter. 
 					None to not wait for user's input.
@@ -42,8 +43,7 @@ class WindowTasks:
 		select: tuple | list = None, 
 		task_after_select: dict | FunctionType = None,
 		final: FunctionType = None,
-		wait_for_enter: int | float = 1,
-		newline_amount: int = 1
+		wait_for_enter: int | float = 1
 	):
 		if not any((string, select, final)):
 			return 

@@ -1,7 +1,7 @@
 import random
 import sys
 
-from utils import consts
+from helpers import consts
 from db import SQL
 
 sql = SQL()
@@ -45,7 +45,7 @@ def world_choose(window, world):
 def name_choose(window, name):
 	sql.dict_insert("player_info", "name", name)
 
-# 2*/ is custom string formatting. see utils/window.py
+# 2*/ is custom string formatting. see helpers/window.py
 start_messages = [
 	# i have no idea why but shit doesnt work if you enter a tuple with only string in it (like `('abc',)`)
 	# interpreter just starts freaking out, so its only lists despite the poor performance

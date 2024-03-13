@@ -1,6 +1,6 @@
 import curses
 
-from utils import Window, WindowTasks
+from helpers import Window, WindowTasks
 from sys import argv
 from . import story
 
