@@ -12,6 +12,7 @@ A pretty random terminal-based game made with Python and [curses](https://docs.p
 
 * This README was made for the sake of it, so it's pretty short and doesn't provide any useful information. Sorry.
 * I choose this name for the project because it sounds cool, originally wasn't related to idea of the game.
+* Only in Russian for now.
 * Uses SQLite as a database.
 * Most of the effort was put into helpers xD.
 * This project is in a very early state, so don't mind lack of any story progression.
