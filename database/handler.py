@@ -2,12 +2,12 @@ import sqlite3
 
 from os import getcwd
 
-class SQL:
-	def __init__(self, db_path: str="/db/data/main.db"):
-		self.db_path = getcwd() + db_path
+class SqliteHandler:
+	def __init__(self, file_path: str):
+		self.file_path = f"{getcwd()}/database/{file_path}"
 	
 	def execute(self, sql: str):
-		with sqlite3.connect(self.db_path) as connection:
+		with sqlite3.connect(self.file_path) as connection:
 			cursor = connection.cursor()
 			cursor.execute(sql)
 			return cursor

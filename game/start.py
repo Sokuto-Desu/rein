@@ -1,11 +1,11 @@
 import curses
+import story
 
-from helpers import Window, WindowTasks
+from handlers import Window, WindowTasks
 from sys import argv
-from . import story
 
 
-class Reincarnation():
+class Reincarnation:
 	def start(self):
 		curses.wrapper(self._redirect)
 	
@@ -24,8 +24,6 @@ class Reincarnation():
 		
 		for message in start_messages:
 			self.wintasks.execute_task(message)
-		
-		self.window.print_str("\n\n")
 		
 		while True:
 			self.window.get_key()

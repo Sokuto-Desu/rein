@@ -2,11 +2,9 @@ import curses
 import re 
 import time 
 
-from . import consts
+from helpers import consts
 from types import FunctionType
 
-# note: this code does not use anything from vars.py as it would lead to circular import error
-# note 2: nvm
 
 class Window:
 	def __init__(self, stdscr):
@@ -16,6 +14,21 @@ class Window:
 		self.window.doupdate()
 	
 	def print_str(self, *args, **kwargs):
+		"""Replacement for builtin `curses.window.addstr()`. Refreshes the window immediately after the print.
+		Always use this unless for some reason you need `.addstr()`.
+		Use `.add_str()` if you need the same method but without the refresh.
+		Use `.raw_str()` if you need the same method but with `.noutrefresh()` only.
+		
+		Args:
+			string: The string to print.
+			y: The y coordinate of the string. 
+				If y is 0, it is at the top of the window.
+			x: The x coordinate of the string.
+				If x is p, it is at the left of the window.
+			attr: The attribute of the string. Should also be a string.
+				See add_str for the list of available attributes.
+			quick: Whether the cursor should be moved to its initial position after the print.
+		"""
 		self.add_str(*args, **kwargs)
 		self.window.refresh()
 	
@@ -101,13 +114,24 @@ class Window:
 				self.print_str(row, cy, cx)
 	
 	
-	def show_enter_tip(
+	def wait_for_enter(
 		self,
-		string: str = "Нажмите Enter чтобы продолжить",
+		string: str,
 		wait_actions: int = 3,
 		y: int = None,
 		x: int = None
 	):
+		"""Waits for the press of enter button.
+		
+		Args;
+			string: The string to display if the user does other actions too much.
+					"Нажмите Enter чтобы продолжить" by default.
+			wait_actions: Amount of actions to wait until displaying the string.
+					Enter a negative number to not display the tip at all.
+					3 by default.
+			y: The y coordinate of the string.
+			x: The x coordinate of the string.
+		"""
 		og_y, og_x = self.get_yx()
 		tip_y, _ = self.get_max_yx()
 		tip_y = y if y else tip_y
@@ -119,10 +143,13 @@ class Window:
 			key = self.get_key()
 			
 			if key in consts.next:
+				# clears out the enter tip
 				self.window.move(tip_y - 1, tip_x)
 				self.window.clrtoeol()
 				self.window.move(og_y, og_x)
-				break 
+				break
+			elif wait_actions < 0:
+				continue
 			elif i == wait_actions:
 				self.print_str(string, tip_y - 1, tip_x, attr="standout", quick=True)
 				self.window.move(og_y, og_x)
@@ -140,5 +167,8 @@ class Window:
 	def clear(self):
 		self.window.clear()
 	
-	def move(self, y, x):
+	def move(self, y: int, x: int):
 		self.window.move(y, x)
+	
+	def timeout(self, delay: int):
+		self.window.timeout(delay)
