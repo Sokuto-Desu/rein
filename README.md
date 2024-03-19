@@ -1,12 +1,10 @@
-<div align="center">
-	<font size="7">Rein</font>
-</div>
+<h1 align="center">
+	Rein
+</h1>
 
 A pretty random terminal-based game made with Python and [blessings](https://github.com/erikrose/blessings) library.
 
 ![rein](https://i.postimg.cc/nrCrstcY/Untitled37-20240319211108.png)
-
----
 
 ![python](https://img.shields.io/badge/python-blue?style=for-the-badge&logo=python&labelColor=violet)
 
